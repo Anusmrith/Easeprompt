@@ -335,6 +335,16 @@ class ExpansionEngine:
         }
 
     def _get_env_key_for_provider(self, provider: str) -> str:
+        """
+        Retrieves server-side API keys with a zero-cost financial guardrail.
+        By default, server-level paid keys are disabled in public production to prevent
+        anonymous visitors from running up unexpected billing charges.
+        To explicitly allow server keys, set ALLOW_SERVER_API_KEYS=true in environment.
+        """
+        allow_server_keys = os.getenv("ALLOW_SERVER_API_KEYS", "false").lower() in ("true", "1")
+        if not allow_server_keys:
+            return ""
+
         if provider == "gemini":
             return self.gemini_key
         elif provider == "openai":
