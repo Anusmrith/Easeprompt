@@ -70,29 +70,50 @@ http://127.0.0.1:8000
 
 ---
 
+## 🌐 Cloud Deployment (Render, Railway, Fly.io)
+
+### One-Click Deploy to Render
+1. Create a free account at [Render.com](https://render.com).
+2. Click **New +** > **Web Service** and connect this repository: `Anusmrith/Easeprompt`.
+3. Set the runtime to **Python 3**.
+4. Set Build Command: `pip install -r requirements.txt`.
+5. Set Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+6. Select the **Free** instance tier and click **Deploy Web Service**.
+
+Easeprompt includes a ready-to-use `render.yaml` and `Procfile` for automatic deployment configuration.
+
+---
+
 ## 📁 Project Structure
 
 ```
 ├── app/
-│   ├── expansion_engine.py      # Core prompt expansion logic
-│   ├── heuristic_generator.py   # Heuristics rules & templates
-│   ├── meta_prompt.py           # Meta-prompt definitions & formatting
+│   ├── expansion_engine.py      # Core prompt expansion & streaming logic
+│   ├── heuristic_generator.py   # Heuristic rules & domain knowledge
+│   ├── meta_prompt.py           # Meta-prompt templates & formatting
 │   ├── models.py                # Pydantic data schemas
 │   ├── quality_filter.py        # Quality & constraint validation
-│   ├── main.py                  # FastAPI route controllers
-│   └── static/                  # Web interface (HTML, CSS, JS)
+│   ├── rate_limiter.py          # Production in-memory IP rate limiter (DDoS protection)
+│   ├── main.py                  # FastAPI route controllers & middleware
+│   └── static/                  # Modern UI interface (HTML, CSS, JS)
 │       ├── index.html
 │       ├── style.css
 │       └── app.js
-├── .env.example                 # Sample configuration
+├── .env.example                 # Sample environment variables
 ├── .gitignore                   # Git ignore patterns
+├── LICENSE                      # MIT Open Source License
 ├── main.py                      # Application entrypoint
+├── Procfile                     # Cloud process configuration
+├── render.yaml                  # Render Blueprint definition
 ├── requirements.txt             # Project dependencies
-└── test_backend.py              # Backend test scripts
+└── test_backend.py              # Automated test suite
 ```
 
 ---
 
-## 📝 License
+## 📝 License & Disclaimers
 
-Distributed under the MIT License. See `LICENSE` for more information.
+- **License**: Distributed under the [MIT License](LICENSE). Copyright (c) 2026 Anusmrith.
+- **Privacy**: Easeprompt processes prompt expansions real-time in memory. No user prompts or generation logs are stored on disk or databases.
+- **Trademarks**: Compatible model names (ChatGPT, Claude, Gemini, Cursor) are referenced for compatibility purposes only and remain the trademarks of their respective owners.
+

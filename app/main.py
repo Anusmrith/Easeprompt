@@ -20,6 +20,7 @@ from .models import (
     TestPromptResponse
 )
 from .expansion_engine import ExpansionEngine
+from .rate_limiter import RateLimitMiddleware
 
 # Load environment variables
 load_dotenv()
@@ -29,6 +30,9 @@ app = FastAPI(
     description="Principal Prompt Engineering & Meta-Prompt Expansion Engine",
     version="1.0.0"
 )
+
+# Rate limiting middleware for production bot protection (30 requests/min per IP)
+app.add_middleware(RateLimitMiddleware, limit=30, window_seconds=60)
 
 # CORS configuration
 app.add_middleware(
@@ -43,6 +47,12 @@ engine = ExpansionEngine()
 
 # Resolve static directory path
 STATIC_DIR = Path(__file__).parent / "static"
+
+
+@app.get("/health")
+async def health_check():
+    """Production health check endpoint for monitoring & load balancers."""
+    return {"status": "healthy", "service": "easeprompt", "version": "1.0.0"}
 
 
 @app.get("/")

@@ -990,3 +990,52 @@ html, body {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(12px); }
 }
+
+/* ==========================================================================
+   Footer & Legal Disclaimer
+   ========================================================================== */
+.footer {
+  margin-top: 24px;
+  padding: 16px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-brand {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.footer-sep {
+  opacity: 0.4;
+}
+
+.footer-privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(52, 211, 153, 0.9);
+  font-weight: 500;
+}
+
+.footer-disclaimer {
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.55);
+  max-width: 780px;
+  line-height: 1.45;
+}
