@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easeprompt — AI Prompt Generator</title>
+  <meta name="description" content="Turn simple ideas into comprehensive, high-performing AI prompts in seconds.">
+  
+  <!-- Premium Modern Typography: Plus Jakarta Sans, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Highlight.js for Syntax Colorization -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Marked for Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient Atmospheric Lighting Mesh -->
+  <div class="glow-orb orb-1" aria-hidden="true"></div>
+  <div class="glow-orb orb-2" aria-hidden="true"></div>
+  <div class="grid-backdrop" aria-hidden="true"></div>
+
+  <div class="app-container">
+    <!-- Sleek Header Navigation -->
+    <header class="navbar" role="banner">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title-row">
+            <h1>Easeprompt</h1>
+            <span class="badge-version">v1.0</span>
+          </div>
+          <p class="tagline">Instant, production-ready AI prompts</p>
+        </div>
+      </div>
+
+      <div class="nav-status">
+        <div class="status-indicator" title="Built-in zero-latency knowledge engine active">
+          <span class="status-dot"></span>
+          <span class="status-text">Built-in Engine Active</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace (Zero-Overflow Grid) -->
+    <main class="main-layout" role="main">
+      <!-- Left: Simple Input & Generator -->
+      <section class="card-glass input-panel" aria-labelledby="inputPanelTitle">
+        <div class="panel-heading">
+          <h2 id="inputPanelTitle">Create a Prompt</h2>
+          <p class="subtext">Describe what you need. Easeprompt engineers the rest.</p>
+        </div>
+
+        <!-- Input Box -->
+        <div class="input-container">
+          <textarea 
+            id="promptInput" 
+            placeholder="Type your idea or task here... (e.g. 'Build a crypto price tracker with WebSockets' or 'Write an enterprise customer retention playbook')"
+            rows="5"
+            spellcheck="false"
+          ></textarea>
+          <div class="input-actions-bar">
+            <span class="char-count" id="charCount">0 characters</span>
+            <button class="clear-btn" id="clearInputBtn" title="Clear input" aria-label="Clear input">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Smart Clarification Helper (Appears dynamically when typing broad seeds like 'app') -->
+        <div class="clarify-box" id="clarifyBox" style="display: none;" role="region" aria-label="Prompt Clarification Suggestions">
+          <div class="clarify-header">
+            <span class="clarify-icon">💡</span>
+            <div class="clarify-text">
+              <strong>Clarify your idea</strong>
+              <span>Broad topic detected. Click an archetype to specify what you are building:</span>
+            </div>
+          </div>
+          <div class="clarify-chips" id="clarifyChips">
+            <button type="button" class="clarify-chip" data-template="E-Commerce Store app with product catalog, cart, and Stripe checkout">🛒 E-Commerce</button>
+            <button type="button" class="clarify-chip" data-template="Real-Time Chat App with group channels, WebSockets, and notifications">💬 Chat & Messaging</button>
+            <button type="button" class="clarify-chip" data-template="Habit & Fitness Tracker app with daily streak logging and goal charts">📱 Habit Tracker</button>
+            <button type="button" class="clarify-chip" data-template="B2B SaaS Analytics & Revenue Dashboard with MRR metrics and charts">📊 SaaS Dashboard</button>
+            <button type="button" class="clarify-chip" data-template="AI Recipe & Meal Planner app with pantry inventory and dietary filters">🍳 Recipe Planner</button>
+            <button type="button" class="clarify-chip" data-template="Kanban Task & Project Management app with drag-and-drop workflow">📋 Task Manager</button>
+          </div>
+        </div>
+
+        <!-- Category Pills (Simple & Intuitive) -->
+        <div class="category-section">
+          <label class="section-label">Category</label>
+          <div class="category-pills" id="categoryPills" role="radiogroup" aria-label="Category Selection">
+            <button class="pill active" data-agent="coding_assistant" role="radio" aria-checked="true">
+              <span class="pill-icon">💻</span>
+              <span>Coding</span>
+            </button>
+            <button class="pill" data-agent="creative_writer" role="radio" aria-checked="false">
+              <span class="pill-icon">✍️</span>
+              <span>Writing</span>
+            </button>
+            <button class="pill" data-agent="data_analyst" role="radio" aria-checked="false">
+              <span class="pill-icon">📊</span>
+              <span>Data</span>
+            </button>
+            <button class="pill" data-agent="general_purpose" role="radio" aria-checked="false">
+              <span class="pill-icon">🎯</span>
+              <span>General</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Starter Chips -->
+        <div class="presets-section">
+          <label class="section-label">Quick Ideas</label>
+          <div class="preset-chips" id="presetChips">
+            <button class="preset-btn" data-text="full-stack habit tracker app with next.js and supabase auth" data-agent="coding_assistant">
+              <span class="chip-badge">App</span> Habit App
+            </button>
+            <button class="preset-btn" data-text="crypto tracker" data-agent="coding_assistant">
+              <span class="chip-badge">Web3</span> Crypto Tracker
+            </button>
+            <button class="preset-btn" data-text="analyze customer churn" data-agent="data_analyst">
+              <span class="chip-badge">ML</span> Customer Churn
+            </button>
+            <button class="preset-btn" data-text="microservice authentication with jwt and rbac" data-agent="coding_assistant">
+              <span class="chip-badge">Security</span> JWT Auth Flow
+            </button>
+            <button class="preset-btn" data-text="optimize slow postgres queries with indexes" data-agent="coding_assistant">
+              <span class="chip-badge">Database</span> SQL Tuning
+            </button>
+            <button class="preset-btn" data-text="persuasive cold email for b2b saas product" data-agent="creative_writer">
+              <span class="chip-badge">Outreach</span> Sales Pitch
+            </button>
+          </div>
+        </div>
+
+        <!-- Primary Action Button -->
+        <button id="generateBtn" class="btn-primary" aria-label="Generate Production Prompt">
+          <span class="btn-inner">
+            <span class="btn-icon">✨</span>
+            <span class="btn-text">Generate Prompt</span>
+          </span>
+          <span class="btn-shortcut">
+            <kbd>Ctrl</kbd> + <kbd>↵</kbd>
+          </span>
+        </button>
+      </section>
+
+      <!-- Right: Generated Output Card -->
+      <section class="card-glass output-panel" aria-labelledby="outputPanelTitle">
+        <div class="output-header">
+          <div class="output-title">
+            <h3 id="outputPanelTitle">Generated Prompt</h3>
+            <span class="stats-badge" id="statsBadge">Ready</span>
+          </div>
+
+          <div class="output-actions">
+            <button class="btn-action-small" id="toggleViewBtn" title="Switch between Formatted and Plain Text" aria-label="Toggle View Mode">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                <line x1="9" y1="20" x2="15" y2="20"></line>
+                <line x1="12" y1="4" x2="12" y2="20"></line>
+              </svg>
+              <span id="toggleViewText">Plain Text</span>
+            </button>
+            <button class="btn-action-small" id="downloadBtn" title="Download markdown file" aria-label="Download Markdown">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download</span>
+            </button>
+            <button class="btn-copy" id="copyBtn" title="Copy to clipboard" aria-label="Copy to Clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span class="copy-label">Copy Prompt</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Body -->
+        <div class="output-content">
+          <!-- Live streaming progress indicator -->
+          <div class="stream-line" id="streamLine" aria-hidden="true"></div>
+
+          <!-- Formatted Markdown Output -->
+          <div class="markdown-body" id="renderedOutput" role="region" aria-live="polite">
+            <div class="empty-state">
+              <div class="empty-icon">✨</div>
+              <h4>Your prompt will appear here</h4>
+              <p>Type a topic on the left or click an example above, then click <strong>Generate Prompt</strong>.</p>
+              <div class="empty-checklist">
+                <span>✓ High-status domain authority role</span>
+                <span>✓ Extrapolated production context</span>
+                <span>✓ Strict negative anti-patterns</span>
+                <span>✓ Formatted deliverable schema</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Raw Editable Textarea (Hidden by default) -->
+          <textarea class="raw-output" id="rawOutput" placeholder="Your prompt text will stream here..." aria-label="Raw Prompt Content"></textarea>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <span>Easeprompt © 2026 — Simple, powerful prompts for ChatGPT, Claude, Gemini & Cursor</span>
+    </footer>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
